@@ -117,9 +117,6 @@
         border-radius: var(--radius-lg);
         padding: 1rem 1.25rem;
       }
-      .card.pick {
-        border: 2px solid var(--info-border);
-      }
       .badge {
         font-size: 11px;
         padding: 3px 10px;
@@ -275,9 +272,6 @@
         border-radius: var(--radius-md);
         padding: 1rem;
       }
-      .cost-card.winner {
-        outline: 2px solid var(--success-border);
-      }
       .cost-card .label {
         font-size: 12px;
         color: var(--text-secondary);
@@ -309,7 +303,6 @@
 
       <div class="tabs" id="tabs">
         <button class="tab active" data-tab="taxas">Taxas por método</button>
-        <button class="tab" data-tab="features">Recursos e DX</button>
         <button class="tab" data-tab="sim">Simulador de custo</button>
       </div>
 
@@ -354,7 +347,7 @@
             </div>
           </div>
 
-          <div class="card pick">
+          <div class="card">
             <span class="badge badge-info">Melhor Pix fixo</span>
             <div class="name">AbacatePay</div>
             <div class="sub">Feito por devs, para devs BR</div>
@@ -439,162 +432,6 @@
             <div class="row">
               <span class="lbl">Antifraude</span
               ><span class="val mid">+ R$0,70/tx</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- FEATURES -->
-      <div id="features" class="hidden">
-        <div class="grid">
-          <div class="card">
-            <div class="name">Mercado Pago</div>
-            <div class="row">
-              <span class="lbl">SDK Node.js/TS</span
-              ><span class="val good">Oficial</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Apple / Google Pay</span
-              ><span class="val bad">Não</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Antifraude</span
-              ><span class="val good">Incluso</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Checkout transparente</span
-              ><span class="val good">Sim</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Split payment</span
-              ><span class="val mid">Limitado</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Sandbox</span><span class="val good">Sim</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Confiança consumidor</span
-              ><span class="val good">Muito alta</span>
-            </div>
-            <div class="feat">
-              <span class="pill yes">Checkout Pro</span>
-              <span class="pill yes">Checkout API</span>
-              <span class="pill yes">Webhooks</span>
-              <span class="pill no">Sem Apple/Google Pay</span>
-            </div>
-          </div>
-
-          <div class="card pick">
-            <div class="name">AbacatePay</div>
-            <div class="row">
-              <span class="lbl">SDK Node.js/TS</span
-              ><span class="val good">Oficial (15+ SDKs)</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Apple / Google Pay</span
-              ><span class="val bad">Não</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Antifraude</span
-              ><span class="val mid">Não confirmado</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Checkout transparente</span
-              ><span class="val mid">Via link/redirect</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Split payment</span
-              ><span class="val mid">Em breve</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Sandbox</span
-              ><span class="val good">Sim (devMode)</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Confiança consumidor</span
-              ><span class="val mid">Baixa (startup nova)</span>
-            </div>
-            <div class="feat">
-              <span class="pill yes">Open source</span>
-              <span class="pill yes">Supabase webhook</span>
-              <span class="pill yes">MCP server</span>
-              <span class="pill yes">Comunidade Discord</span>
-              <span class="pill no">~1 ano de mercado</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="name">Stripe Brasil</div>
-            <div class="row">
-              <span class="lbl">SDK Node.js/TS</span
-              ><span class="val good">Oficial (melhor TS)</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Apple / Google Pay</span
-              ><span class="val good">Nativo</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Antifraude (Radar)</span
-              ><span class="val good">Incluso</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Checkout transparente</span
-              ><span class="val good">Elements + Checkout</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Split payment</span
-              ><span class="val good">Connect (robusto)</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Sandbox</span><span class="val good">Sim</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Confiança consumidor</span
-              ><span class="val mid">Média no BR</span>
-            </div>
-            <div class="feat">
-              <span class="pill yes">Apple Pay</span>
-              <span class="pill yes">Google Pay</span>
-              <span class="pill yes">Stripe Elements</span>
-              <span class="pill yes">Radar ML</span>
-              <span class="pill yes">Docs referência</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="name">Pagar.me (Stone)</div>
-            <div class="row">
-              <span class="lbl">SDK Node.js/TS</span
-              ><span class="val bad">Não oficial</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Apple / Google Pay</span
-              ><span class="val good">Sim (3DS 2.0)</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Antifraude</span
-              ><span class="val mid">R$0,70/tx extra</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Checkout transparente</span
-              ><span class="val good">Sim</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Split payment</span
-              ><span class="val good">Robusto</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Sandbox</span><span class="val good">Sim</span>
-            </div>
-            <div class="row">
-              <span class="lbl">Confiança consumidor</span
-              ><span class="val">Média</span>
-            </div>
-            <div class="feat">
-              <span class="pill yes">Stone backed</span>
-              <span class="pill yes">PCI DSS L1</span>
-              <span class="pill no">Docs confusas</span>
-              <span class="pill no">Sem SDK oficial</span>
             </div>
           </div>
         </div>
@@ -703,7 +540,7 @@
     <script>
       const $ = (s) => document.querySelector(s);
       const tabs = document.querySelectorAll(".tab");
-      const sections = ["taxas", "features", "sim"];
+      const sections = ["taxas", "sim"];
       tabs.forEach((t) =>
         t.addEventListener("click", () => {
           tabs.forEach((x) => x.classList.remove("active"));

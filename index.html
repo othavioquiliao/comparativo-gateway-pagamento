@@ -264,7 +264,7 @@
       }
       .cost-cards {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         gap: 12px;
       }
       .cost-card {
@@ -297,8 +297,8 @@
     <div class="container">
       <h1>Comparativo gateways de pagamento</h1>
       <p class="subtitle">
-        Mercado Pago vs AbacatePay vs Stripe vs Pagar.me — e-commerce brasileiro
-        2025-2026
+        Mercado Pago vs AbacatePay vs Stripe vs Pagar.me vs Asaas — e-commerce
+        brasileiro 2025-2026
       </p>
 
       <div class="tabs" id="tabs">
@@ -434,6 +434,48 @@
               ><span class="val mid">+ R$0,70/tx</span>
             </div>
           </div>
+
+          <div class="card">
+            <span class="badge badge-ok">Plataforma completa</span>
+            <div class="name">Asaas</div>
+            <div class="sub">Autorizado pelo Banco Central (cód. 461)</div>
+            <div class="row">
+              <span class="lbl">Pix (pós-promo)</span
+              ><span class="val">R$1,99 — D+0</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Pix (promo 3 meses)</span
+              ><span class="val good">R$0,99 — D+0</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Pix grátis/mês</span
+              ><span class="val good">30 transações</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Crédito 1x (D+32)</span
+              ><span class="val">R$0,49 + 2,99%</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Crédito 1x (promo 3 meses)</span
+              ><span class="val good">R$0,49 + 1,99%</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Boleto (pós-promo)</span
+              ><span class="val good">R$1,99</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Boleto (promo 3 meses)</span
+              ><span class="val good">R$0,99</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Antecipação cartão</span
+              ><span class="val mid">1,25% a 1,70%/mês</span>
+            </div>
+            <div class="row">
+              <span class="lbl">NFS-e integrada</span
+              ><span class="val">R$0,49/nota</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -555,8 +597,14 @@
       );
 
       const isDark = matchMedia("(prefers-color-scheme:dark)").matches;
-      const colors = ["#1D9E75", "#D85A30", "#378ADD", "#7F77DD"];
-      const names = ["AbacatePay", "Mercado Pago", "Stripe", "Pagar.me"];
+      const colors = ["#1D9E75", "#D85A30", "#378ADD", "#7F77DD", "#D4537E"];
+      const names = [
+        "AbacatePay",
+        "Mercado Pago",
+        "Stripe",
+        "Pagar.me",
+        "Asaas",
+      ];
 
       let chart;
       function calc() {
@@ -590,8 +638,12 @@
           pixRev * 0.0119 +
           nCard * (ticket * 0.0439 + 0.99 + 0.7) +
           nBoleto * 3.49;
+        const pixFree = Math.min(nPix, 30);
+        const pixPaid = Math.max(0, nPix - 30);
+        const asaas =
+          pixPaid * 1.99 + nCard * (ticket * 0.0299 + 0.49) + nBoleto * 1.99;
 
-        const costs = [abacate, mp, stripe, pagarme];
+        const costs = [abacate, mp, stripe, pagarme, asaas];
         const min = Math.min(...costs);
 
         const ctx = $("#simChart");
@@ -608,6 +660,7 @@
                   pixRev * 0.0099,
                   pixRev * 0.0119,
                   pixRev * 0.0119,
+                  pixPaid * 1.99,
                 ],
                 backgroundColor: colors.map((c) => c + "99"),
               },
@@ -618,6 +671,7 @@
                   cardRev * 0.0398,
                   nCard * (ticket * 0.0399 + 0.39),
                   nCard * (ticket * 0.0439 + 0.99 + 0.7),
+                  nCard * (ticket * 0.0299 + 0.49),
                 ],
                 backgroundColor: colors.map((c) => c + "DD"),
               },
@@ -628,6 +682,7 @@
                   nBoleto * 3.49,
                   nBoleto * 3.49,
                   nBoleto * 3.49,
+                  nBoleto * 1.99,
                 ],
                 backgroundColor: colors,
               },

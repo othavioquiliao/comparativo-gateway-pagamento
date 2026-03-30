@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comparativo Gateways de Pagamento BR</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-primary: #ffffff;
+        --bg-secondary: #f7f7f5;
+        --bg-tertiary: #f0efec;
+        --text-primary: #1a1a1a;
+        --text-secondary: #6b6b6b;
+        --text-tertiary: #999;
+        --border: rgba(0, 0, 0, 0.1);
+        --border-hover: rgba(0, 0, 0, 0.2);
+        --info-bg: #e6f1fb;
+        --info-text: #185fa5;
+        --info-border: #85b7eb;
+        --success-bg: #eaf3de;
+        --success-text: #3b6d11;
+        --success-border: #97c459;
+        --warn-bg: #faeeda;
+        --warn-text: #854f0b;
+        --danger-bg: #fcebeb;
+        --danger-text: #a32d2d;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-primary: #1e1e1e;
+          --bg-secondary: #2a2a2a;
+          --bg-tertiary: #333;
+          --text-primary: #e8e8e8;
+          --text-secondary: #aaa;
+          --text-tertiary: #777;
+          --border: rgba(255, 255, 255, 0.1);
+          --border-hover: rgba(255, 255, 255, 0.2);
+          --info-bg: #0c447c;
+          --info-text: #b5d4f4;
+          --info-border: #378add;
+          --success-bg: #27500a;
+          --success-text: #c0dd97;
+          --success-border: #639922;
+          --warn-bg: #633806;
+          --warn-text: #fac775;
+          --danger-bg: #791f1f;
+          --danger-text: #f7c1c1;
+        }
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "DM Sans", system-ui, sans-serif;
+        color: var(--text-primary);
+        background: var(--bg-tertiary);
+        min-height: 100vh;
+        padding: 2rem 1rem;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .subtitle {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+      }
+      .tabs {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .tab {
+        padding: 8px 16px;
+        border-radius: var(--radius-md);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        border: 0.5px solid var(--border);
+        background: var(--bg-primary);
+        color: var(--text-secondary);
+        transition: all 0.15s;
+        font-family: inherit;
+      }
+      .tab.active {
+        background: var(--info-bg);
+        color: var(--info-text);
+        border-color: var(--info-border);
+      }
+      .tab:hover:not(.active) {
+        background: var(--bg-secondary);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 12px;
+        margin-bottom: 1.5rem;
+      }
+      .card {
+        background: var(--bg-primary);
+        border: 0.5px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1rem 1.25rem;
+      }
+      .card.pick {
+        border: 2px solid var(--info-border);
+      }
+      .badge {
+        font-size: 11px;
+        padding: 3px 10px;
+        border-radius: var(--radius-md);
+        font-weight: 500;
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+      .badge-info {
+        background: var(--info-bg);
+        color: var(--info-text);
+      }
+      .badge-warn {
+        background: var(--warn-bg);
+        color: var(--warn-text);
+      }
+      .badge-ok {
+        background: var(--success-bg);
+        color: var(--success-text);
+      }
+      .badge-err {
+        background: var(--danger-bg);
+        color: var(--danger-text);
+      }
+      .name {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .sub {
+        font-size: 12px;
+        color: var(--text-secondary);
+        margin-bottom: 12px;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 0.5px solid var(--border);
+        font-size: 13px;
+      }
+      .row:last-of-type {
+        border: none;
+      }
+      .lbl {
+        color: var(--text-secondary);
+      }
+      .val {
+        font-weight: 500;
+        text-align: right;
+      }
+      .val.good {
+        color: var(--success-text);
+      }
+      .val.mid {
+        color: var(--warn-text);
+      }
+      .val.bad {
+        color: var(--danger-text);
+      }
+      .feat {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 10px;
+      }
+      .pill {
+        font-size: 11px;
+        padding: 3px 8px;
+        border-radius: var(--radius-md);
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+      }
+      .pill.yes {
+        background: var(--success-bg);
+        color: var(--success-text);
+      }
+      .pill.no {
+        background: var(--danger-bg);
+        color: var(--danger-text);
+      }
+      .hidden {
+        display: none;
+      }
+      label {
+        font-size: 13px;
+        color: var(--text-secondary);
+        display: block;
+        margin-bottom: 4px;
+      }
+      input[type="range"] {
+        width: 100%;
+        accent-color: var(--info-text);
+      }
+      .slider-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .slider-val {
+        font-size: 14px;
+        font-weight: 500;
+        min-width: 48px;
+        text-align: right;
+      }
+      .sim-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 1.5rem;
+      }
+      .sim-group {
+        flex: 1;
+        min-width: 180px;
+      }
+      .chart-wrap {
+        position: relative;
+        width: 100%;
+        height: 320px;
+        margin-bottom: 1rem;
+        background: var(--bg-primary);
+        border-radius: var(--radius-lg);
+        padding: 1rem;
+        border: 0.5px solid var(--border);
+      }
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 12px;
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+      .legend span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .legend .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        display: inline-block;
+      }
+      .cost-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+      }
+      .cost-card {
+        background: var(--bg-secondary);
+        border-radius: var(--radius-md);
+        padding: 1rem;
+      }
+      .cost-card.winner {
+        outline: 2px solid var(--success-border);
+      }
+      .cost-card .label {
+        font-size: 12px;
+        color: var(--text-secondary);
+        margin-bottom: 4px;
+      }
+      .cost-card .amount {
+        font-size: 22px;
+        font-weight: 600;
+      }
+      .cost-card .pct {
+        font-size: 11px;
+        color: var(--text-tertiary);
+      }
+      #pct-warn {
+        font-size: 12px;
+        color: var(--warn-text);
+        min-height: 18px;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Comparativo gateways de pagamento</h1>
+      <p class="subtitle">
+        Mercado Pago vs AbacatePay vs Stripe vs Pagar.me — e-commerce brasileiro
+        2025-2026
+      </p>
+
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-tab="taxas">Taxas por método</button>
+        <button class="tab" data-tab="features">Recursos e DX</button>
+        <button class="tab" data-tab="sim">Simulador de custo</button>
+      </div>
+
+      <!-- TAXAS -->
+      <div id="taxas">
+        <div class="grid">
+          <div class="card">
+            <span class="badge badge-warn">Mais conhecido</span>
+            <div class="name">Mercado Pago</div>
+            <div class="sub">Marca forte no consumidor BR</div>
+            <div class="row">
+              <span class="lbl">Pix</span
+              ><span class="val good">0,99% — D+0</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Crédito 1x (D+0)</span
+              ><span class="val bad">4,98%</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Crédito 1x (D+14)</span
+              ><span class="val mid">4,49%</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Crédito 1x (D+30)</span
+              ><span class="val">3,98%</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Débito virtual Caixa</span
+              ><span class="val">3,99% — D+0</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Boleto</span
+              ><span class="val">R$3,49 — D+3</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Open Finance</span
+              ><span class="val good">Grátis — D+0</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Saque</span
+              ><span class="val">Grátis (saldo MP)</span>
+            </div>
+          </div>
+
+          <div class="card pick">
+            <span class="badge badge-info">Melhor Pix fixo</span>
+            <div class="name">AbacatePay</div>
+            <div class="sub">Feito por devs, para devs BR</div>
+            <div class="row">
+              <span class="lbl">Pix</span
+              ><span class="val good">R$0,80 fixo — D+0</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Crédito 1x (D+32)</span
+              ><span class="val">3,5% + R$0,60</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Crédito antecipado (D+2)</span
+              ><span class="val mid">5% + R$0,60</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Boleto</span
+              ><span class="val good">R$2,50 (Pix: R$0,80)</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Saque Pix (até 20/mês)</span
+              ><span class="val">R$0,80</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Saque Pix (21º+)</span
+              ><span class="val">R$2,50</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="badge badge-ok">Melhor DX global</span>
+            <div class="name">Stripe Brasil</div>
+            <div class="sub">Referência mundial em documentação</div>
+            <div class="row">
+              <span class="lbl">Pix</span><span class="val">1,19% — T+2</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Crédito doméstico (T+2)</span
+              ><span class="val">3,99% + R$0,39</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Crédito internacional</span
+              ><span class="val bad">5,99% + R$0,39</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Boleto</span
+              ><span class="val mid">Suporte limitado</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Saque</span
+              ><span class="val">Automático T+2</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="badge badge-err">Taxas sob consulta</span>
+            <div class="name">Pagar.me (Stone)</div>
+            <div class="sub">Plano público D+15</div>
+            <div class="row">
+              <span class="lbl">Pix</span><span class="val">1,19% — D+15</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Crédito 1x (D+15) — plano à vista</span
+              ><span class="val">4,39%</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Crédito 1x (D+15) — plano parcelado</span
+              ><span class="val mid">5,59%</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Boleto (D+15)</span
+              ><span class="val">R$3,49</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Taxa por transação</span
+              ><span class="val">+ R$0,99</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Taxa por saque</span
+              ><span class="val">R$3,67</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Antifraude</span
+              ><span class="val mid">+ R$0,70/tx</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEATURES -->
+      <div id="features" class="hidden">
+        <div class="grid">
+          <div class="card">
+            <div class="name">Mercado Pago</div>
+            <div class="row">
+              <span class="lbl">SDK Node.js/TS</span
+              ><span class="val good">Oficial</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Apple / Google Pay</span
+              ><span class="val bad">Não</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Antifraude</span
+              ><span class="val good">Incluso</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Checkout transparente</span
+              ><span class="val good">Sim</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Split payment</span
+              ><span class="val mid">Limitado</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Sandbox</span><span class="val good">Sim</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Confiança consumidor</span
+              ><span class="val good">Muito alta</span>
+            </div>
+            <div class="feat">
+              <span class="pill yes">Checkout Pro</span>
+              <span class="pill yes">Checkout API</span>
+              <span class="pill yes">Webhooks</span>
+              <span class="pill no">Sem Apple/Google Pay</span>
+            </div>
+          </div>
+
+          <div class="card pick">
+            <div class="name">AbacatePay</div>
+            <div class="row">
+              <span class="lbl">SDK Node.js/TS</span
+              ><span class="val good">Oficial (15+ SDKs)</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Apple / Google Pay</span
+              ><span class="val bad">Não</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Antifraude</span
+              ><span class="val mid">Não confirmado</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Checkout transparente</span
+              ><span class="val mid">Via link/redirect</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Split payment</span
+              ><span class="val mid">Em breve</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Sandbox</span
+              ><span class="val good">Sim (devMode)</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Confiança consumidor</span
+              ><span class="val mid">Baixa (startup nova)</span>
+            </div>
+            <div class="feat">
+              <span class="pill yes">Open source</span>
+              <span class="pill yes">Supabase webhook</span>
+              <span class="pill yes">MCP server</span>
+              <span class="pill yes">Comunidade Discord</span>
+              <span class="pill no">~1 ano de mercado</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="name">Stripe Brasil</div>
+            <div class="row">
+              <span class="lbl">SDK Node.js/TS</span
+              ><span class="val good">Oficial (melhor TS)</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Apple / Google Pay</span
+              ><span class="val good">Nativo</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Antifraude (Radar)</span
+              ><span class="val good">Incluso</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Checkout transparente</span
+              ><span class="val good">Elements + Checkout</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Split payment</span
+              ><span class="val good">Connect (robusto)</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Sandbox</span><span class="val good">Sim</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Confiança consumidor</span
+              ><span class="val mid">Média no BR</span>
+            </div>
+            <div class="feat">
+              <span class="pill yes">Apple Pay</span>
+              <span class="pill yes">Google Pay</span>
+              <span class="pill yes">Stripe Elements</span>
+              <span class="pill yes">Radar ML</span>
+              <span class="pill yes">Docs referência</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="name">Pagar.me (Stone)</div>
+            <div class="row">
+              <span class="lbl">SDK Node.js/TS</span
+              ><span class="val bad">Não oficial</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Apple / Google Pay</span
+              ><span class="val good">Sim (3DS 2.0)</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Antifraude</span
+              ><span class="val mid">R$0,70/tx extra</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Checkout transparente</span
+              ><span class="val good">Sim</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Split payment</span
+              ><span class="val good">Robusto</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Sandbox</span><span class="val good">Sim</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Confiança consumidor</span
+              ><span class="val">Média</span>
+            </div>
+            <div class="feat">
+              <span class="pill yes">Stone backed</span>
+              <span class="pill yes">PCI DSS L1</span>
+              <span class="pill no">Docs confusas</span>
+              <span class="pill no">Sem SDK oficial</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIMULADOR -->
+      <div id="sim" class="hidden">
+        <p
+          style="
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+          "
+        >
+          Simule o custo mensal estimado por gateway, assumindo um ticket médio
+          e a distribuição de métodos de pagamento do seu e-commerce.
+        </p>
+
+        <div class="sim-grid">
+          <div class="sim-group">
+            <label>Pedidos / mês</label>
+            <div class="slider-row">
+              <input
+                type="range"
+                min="10"
+                max="500"
+                value="100"
+                step="10"
+                id="orders"
+              />
+              <span class="slider-val" id="orders-out">100</span>
+            </div>
+          </div>
+          <div class="sim-group">
+            <label>Ticket médio (R$)</label>
+            <div class="slider-row">
+              <input
+                type="range"
+                min="30"
+                max="1000"
+                value="150"
+                step="10"
+                id="ticket"
+              />
+              <span class="slider-val" id="ticket-out">R$150</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sim-grid">
+          <div class="sim-group">
+            <label>% Pix</label>
+            <div class="slider-row">
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value="50"
+                step="5"
+                id="pix-pct"
+              />
+              <span class="slider-val" id="pix-out">50%</span>
+            </div>
+          </div>
+          <div class="sim-group">
+            <label>% Cartão</label>
+            <div class="slider-row">
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value="40"
+                step="5"
+                id="card-pct"
+              />
+              <span class="slider-val" id="card-out">40%</span>
+            </div>
+          </div>
+          <div class="sim-group">
+            <label>% Boleto</label>
+            <div class="slider-row">
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value="10"
+                step="5"
+                id="boleto-pct"
+              />
+              <span class="slider-val" id="boleto-out">10%</span>
+            </div>
+          </div>
+        </div>
+
+        <p id="pct-warn"></p>
+
+        <div class="chart-wrap">
+          <canvas id="simChart"></canvas>
+        </div>
+        <div class="legend" id="sim-legend"></div>
+        <div class="cost-cards" id="sim-cards"></div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script>
+      const $ = (s) => document.querySelector(s);
+      const tabs = document.querySelectorAll(".tab");
+      const sections = ["taxas", "features", "sim"];
+      tabs.forEach((t) =>
+        t.addEventListener("click", () => {
+          tabs.forEach((x) => x.classList.remove("active"));
+          t.classList.add("active");
+          sections.forEach((s) => {
+            const el = document.getElementById(s);
+            if (s === t.dataset.tab) el.classList.remove("hidden");
+            else el.classList.add("hidden");
+          });
+          if (t.dataset.tab === "sim") calc();
+        }),
+      );
+
+      const isDark = matchMedia("(prefers-color-scheme:dark)").matches;
+      const colors = ["#1D9E75", "#D85A30", "#378ADD", "#7F77DD"];
+      const names = ["AbacatePay", "Mercado Pago", "Stripe", "Pagar.me"];
+
+      let chart;
+      function calc() {
+        const orders = +$("#orders").value;
+        const ticket = +$("#ticket").value;
+        let pix = +$("#pix-pct").value;
+        let card = +$("#card-pct").value;
+        let boleto = +$("#boleto-pct").value;
+        const total = pix + card + boleto;
+        $("#pct-warn").textContent =
+          total !== 100
+            ? `Soma atual: ${total}% (ajuste para 100% para resultado preciso)`
+            : "";
+        const nPix = Math.round((orders * pix) / 100);
+        const nCard = Math.round((orders * card) / 100);
+        const nBoleto = Math.round((orders * boleto) / 100);
+        const rev = orders * ticket;
+        const pixRev = nPix * ticket;
+        const cardRev = nCard * ticket;
+
+        const abacate =
+          nPix * 0.8 +
+          nCard * (ticket * 0.035 + 0.6) +
+          nBoleto * 2.5 +
+          Math.min(nPix + nBoleto, 20) * 0.8 +
+          Math.max(0, nPix + nBoleto - 20) * 2.5;
+        const mp = pixRev * 0.0099 + cardRev * 0.0398 + nBoleto * 3.49;
+        const stripe =
+          pixRev * 0.0119 + nCard * (ticket * 0.0399 + 0.39) + nBoleto * 3.49;
+        const pagarme =
+          pixRev * 0.0119 +
+          nCard * (ticket * 0.0439 + 0.99 + 0.7) +
+          nBoleto * 3.49;
+
+        const costs = [abacate, mp, stripe, pagarme];
+        const min = Math.min(...costs);
+
+        const ctx = $("#simChart");
+        if (chart) chart.destroy();
+        chart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: names,
+            datasets: [
+              {
+                label: "Pix",
+                data: [
+                  nPix * 0.8,
+                  pixRev * 0.0099,
+                  pixRev * 0.0119,
+                  pixRev * 0.0119,
+                ],
+                backgroundColor: colors.map((c) => c + "99"),
+              },
+              {
+                label: "Cartão",
+                data: [
+                  nCard * (ticket * 0.035 + 0.6),
+                  cardRev * 0.0398,
+                  nCard * (ticket * 0.0399 + 0.39),
+                  nCard * (ticket * 0.0439 + 0.99 + 0.7),
+                ],
+                backgroundColor: colors.map((c) => c + "DD"),
+              },
+              {
+                label: "Boleto",
+                data: [
+                  nBoleto * 2.5,
+                  nBoleto * 3.49,
+                  nBoleto * 3.49,
+                  nBoleto * 3.49,
+                ],
+                backgroundColor: colors,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: (ctx) =>
+                    `${ctx.dataset.label}: R$${ctx.parsed.y.toFixed(2)}`,
+                },
+              },
+            },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { color: isDark ? "#aaa" : "#666" },
+              },
+              y: {
+                grid: {
+                  color: isDark ? "rgba(255,255,255,.06)" : "rgba(0,0,0,.06)",
+                },
+                ticks: {
+                  color: isDark ? "#aaa" : "#666",
+                  callback: (v) => "R$" + v.toFixed(0),
+                },
+              },
+            },
+          },
+        });
+
+        $("#sim-legend").innerHTML = `
+    <span><span class="dot" style="background:${colors[0]}99"></span>Pix</span>
+    <span><span class="dot" style="background:${colors[0]}DD"></span>Cartão</span>
+    <span><span class="dot" style="background:${colors[0]}"></span>Boleto</span>
+  `;
+
+        $("#sim-cards").innerHTML = costs
+          .map(
+            (c, i) => `
+    <div class="cost-card${c === min ? " winner" : ""}">
+      <p class="label">${names[i]}${c === min ? " — mais barato" : ""}</p>
+      <p class="amount">R$${c.toFixed(2)}</p>
+      <p class="pct">${((c / rev) * 100).toFixed(2)}% do faturamento</p>
+    </div>
+  `,
+          )
+          .join("");
+      }
+
+      ["orders", "ticket", "pix-pct", "card-pct", "boleto-pct"].forEach(
+        (id) => {
+          const el = document.getElementById(id);
+          el.addEventListener("input", () => {
+            if (id === "orders") $("#orders-out").textContent = el.value;
+            else if (id === "ticket")
+              $("#ticket-out").textContent = "R$" + el.value;
+            else if (id === "pix-pct")
+              $("#pix-out").textContent = el.value + "%";
+            else if (id === "card-pct")
+              $("#card-out").textContent = el.value + "%";
+            else if (id === "boleto-pct")
+              $("#boleto-out").textContent = el.value + "%";
+            calc();
+          });
+        },
+      );
+
+      calc();
+    </script>
+  </body>
+</html>
